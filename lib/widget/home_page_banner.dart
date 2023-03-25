@@ -5,7 +5,7 @@ class BannerList extends StatelessWidget {
   final List<ImageList> listItems = List<ImageList>.generate(20, (index) {
     return ImageList(
         image: Image.asset("assets/images/dummy_01.jpg",
-            height: 500, width: 400, fit: BoxFit.cover));
+            height: 200, width: 400, fit: BoxFit.cover));
   });
 
   BannerList({Key? key}) : super(key: key);
@@ -13,13 +13,13 @@ class BannerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: listItems.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-              width: 200.0,
+              width: 250.0,
               margin: const EdgeInsets.only(
                   top: 20, bottom: 10, left: 10, right: 10),
               child: ClipRRect(

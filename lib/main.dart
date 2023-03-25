@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stylish/widget/home_page_banner.dart';
+import 'package:stylish/widget/home_page_prodcut_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,19 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> images = [
-    'https://picsum.photos/200',
-    'https://picsum.photos/201',
-    'https://picsum.photos/202',
-    'https://picsum.photos/203',
-    'https://picsum.photos/204',
-    'https://picsum.photos/205',
-    'https://picsum.photos/206',
-    'https://picsum.photos/207',
-    'https://picsum.photos/208',
-    'https://picsum.photos/209'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,42 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Column(children: [
-        BannerListView(images: images),
+        BannerList(),
+        HomePageProductList(),
       ]),
-    );
-  }
-}
-
-class BannerListView extends StatelessWidget {
-  const BannerListView({
-    super.key,
-    required this.images,
-  });
-
-  final List<String> images;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: images.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            width: 200.0,
-            margin:
-                const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(images[index]),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          );
-        },
-      ),
     );
   }
 }

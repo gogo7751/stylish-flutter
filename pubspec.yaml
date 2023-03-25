@@ -55,6 +55,7 @@ flutter:
 
   assets:
     - assets/images/app_bar_logo.png
+    - assets/images/dummy_01.jpg
     
   uses-material-design: true
 

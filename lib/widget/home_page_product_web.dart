@@ -23,19 +23,19 @@ class ProductListWeb extends StatelessWidget {
             child: Category(
           category: "女裝",
           productList: productList,
-          isFlexable: true,
+          isflexible: true,
         )),
         Flexible(
             child: Category(
           category: "男裝",
           productList: productList,
-          isFlexable: true,
+          isflexible: true,
         )),
         Flexible(
             child: Category(
           category: "配件",
           productList: productList,
-          isFlexable: true,
+          isflexible: true,
         ))
       ],
     ));

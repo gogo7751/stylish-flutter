@@ -6,12 +6,12 @@ class Category extends StatefulWidget {
     Key? key,
     required this.category,
     required this.productList,
-    required this.isFlexable,
+    required this.isflexible,
   }) : super(key: key);
 
   final String category;
   final List<Product> productList;
-  final bool isFlexable;
+  final bool isflexible;
 
   @override
   _CategoryState createState() => _CategoryState();
@@ -28,14 +28,15 @@ class _CategoryState extends State<Category> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isFlexable) {
+    if (widget.isflexible) {
       return Column(
         children: [
           Text(widget.category),
           Flexible(
             child: ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics: AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
               itemCount: widget.productList.length,
               itemBuilder: (BuildContext context, int index) {
                 return ProdcutItem(item: widget.productList[index]);
@@ -96,7 +97,7 @@ class ProdcutItem extends StatelessWidget {
                   bottomLeft: Radius.circular(10)),
               child: item.image,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Column(
@@ -131,9 +132,9 @@ class ProductListPhone extends StatelessWidget {
         child: SingleChildScrollView(
       child: Column(
         children: [
-          Category(category: "女裝", productList: productList, isFlexable: false),
-          Category(category: "男裝", productList: productList, isFlexable: false),
-          Category(category: "配件", productList: productList, isFlexable: false)
+          Category(category: "女裝", productList: productList, isflexible: false),
+          Category(category: "男裝", productList: productList, isflexible: false),
+          Category(category: "配件", productList: productList, isflexible: false)
         ],
       ),
     ));

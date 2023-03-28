@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(children: [
         BannerList(),
-        HomePageProductList(),
+        const HomePageProductList(),
       ]),
     );
   }

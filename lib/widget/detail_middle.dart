@@ -23,6 +23,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
   int _count = 1;
   int _sizeIndex = -1;
   int _colorIndex = -1;
+  int _stock = 0;
 
   void _showAlertDialog(String title, String content, VoidCallback onPressed) {
     showDialog(
@@ -44,10 +45,10 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
     );
   }
 
-  void _handleCount(bool isAdd, int stock) {
+  void _handleCount(bool isAdd) {
     setState(() {
       isAdd
-          ? _count < stock
+          ? _count < _stock
               ? _count++
               : _showAlertDialog("提示", "庫存已達上限", () => Navigator.pop(context))
           : _count > 1
@@ -56,15 +57,19 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
     });
   }
 
-  void _handleSize(int index) {
+  void _handleSize(int index, int stock) {
     setState(() {
       _sizeIndex = index;
+      _stock = stock;
+      _count = 1;
     });
   }
 
-  void _handleColor(int index) {
+  void _handleColor(int index, int stock) {
     setState(() {
       _colorIndex = index;
+      _stock = stock;
+      _count = 1;
     });
   }
 
@@ -76,7 +81,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
     }
 
     print(
-        "size:${widget.productDetail.sizes[_sizeIndex]}, color:${widget.productDetail.colors[_colorIndex]}, count:$_count");
+        "size:${widget.productDetail.sizes[_sizeIndex]["code"]}, color:${widget.productDetail.colors[_colorIndex]["code"]}, count:$_count");
 
     _showAlertDialog(
       "成功",
@@ -127,15 +132,18 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                     margin: const EdgeInsets.only(right: 15),
                     child: ButtonWithStyle(
                       text: "",
-                      backgroundColor:
-                          Color(int.parse(widget.productDetail.colors[index])),
+                      backgroundColor: Color(int.parse(
+                          widget.productDetail.colors[index]["code"]!)),
                       isCurcleshape: false,
                       borderColor: _colorIndex == index
                           ? Colors.black
                           : Colors.transparent,
                       borderWidth: _colorIndex == index ? 2 : 0,
                       onPressed: () {
-                        _handleColor(index);
+                        _handleColor(
+                            index,
+                            int.parse(
+                                widget.productDetail.colors[index]["stock"]!));
                       },
                     ),
                   );
@@ -161,13 +169,16 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                       width: 50,
                       margin: const EdgeInsets.only(right: 15),
                       child: ButtonWithStyle(
-                        text: widget.productDetail.sizes[index],
+                        text: widget.productDetail.sizes[index]["code"]!,
                         backgroundColor:
                             _sizeIndex == index ? Colors.grey : Colors.white,
                         foregroundColor:
                             _sizeIndex == index ? Colors.white : Colors.black,
                         onPressed: () {
-                          _handleSize(index);
+                          _handleSize(
+                              index,
+                              int.parse(
+                                  widget.productDetail.sizes[index]["stock"]!));
                         },
                       ));
                 }),
@@ -183,7 +194,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
           ButtonWithStyle(
             text: "-",
             onPressed: () {
-              _handleCount(false, int.parse(widget.productDetail.stock));
+              _handleCount(false);
             },
             fontSize: 18,
             isCurcleshape: true,
@@ -198,7 +209,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
           ButtonWithStyle(
             text: "+",
             onPressed: () {
-              _handleCount(true, int.parse(widget.productDetail.stock));
+              _handleCount(true);
             },
             isCurcleshape: true,
           ),

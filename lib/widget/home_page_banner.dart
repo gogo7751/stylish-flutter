@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:stylish/data/product.dart';
+import 'dart:math';
 
 class BannerList extends StatelessWidget {
   final List<ImageList> listItems = List<ImageList>.generate(20, (index) {
     return ImageList(
-        image: Image.asset("assets/images/dummy_01.jpg",
-            height: 200, width: 400, fit: BoxFit.cover));
+        image: Image.asset(
+            "assets/images/banner_0${Random().nextInt(4) + 1}.jpg",
+            height: 200,
+            width: 400,
+            fit: BoxFit.cover));
   });
 
   BannerList({Key? key}) : super(key: key);

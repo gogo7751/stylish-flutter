@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stylish/data/product.dart';
 import 'package:stylish/page/detail_page.dart';
+import 'dart:math';
 
 class Category extends StatefulWidget {
   const Category({
@@ -131,8 +132,11 @@ class ProductListPhone extends StatelessWidget {
   final List<Product> productList = List<Product>.generate(20, (index) {
     return Product(
         id: "1234567",
-        image: Image.asset("assets/images/dummy_01.jpg",
-            height: 100, width: 80, fit: BoxFit.cover),
+        image: Image.asset(
+            "assets/images/dummy_0${Random().nextInt(3) + 1}.jpg",
+            height: 100,
+            width: 80,
+            fit: BoxFit.cover),
         title: "UNIQLO 特級輕羽絨外套",
         price: "NT\$ 239");
   });

@@ -25,15 +25,15 @@ class _DetailPageState extends State<DetailPage> {
         title: "UNIQLO 特級輕羽絨外套",
         price: "239",
         colors: [
-          "0xFFFF0000",
-          "0xFF00FF00",
-          "0xFF0000FF",
-          "0xFFFFFF00",
-          "0xFFFF00FF",
-          "0xFF00FFFF"
+          {'name': 'Red', 'code': '0xFFFF0000', 'stock': '10'},
+          {'name': 'Green', 'code': '0xFF00FF00', 'stock': '20'},
+          {'name': 'Blue', 'code': '0xFF00FFFF', 'stock': '15'}
         ],
-        sizes: ["S", "M"],
-        stock: "12",
+        sizes: [
+          {'name': 'Small', 'code': 'S', 'stock': '5'},
+          {'name': 'Medium', 'code': 'M', 'stock': '10'},
+          {'name': 'Large', 'code': 'L', 'stock': '15'}
+        ],
         productMaterial: [productMaterial],
         thickness: "薄",
         flexible: "無",
@@ -41,11 +41,11 @@ class _DetailPageState extends State<DetailPage> {
         processingOrigin: "日本",
         detail:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel sapien sed urna fringilla pulvinar. Vivamus et nulla eu felis tincidunt tristique. Ut nec nibh id velit ullamcorper iaculis. Sed consectetur, metus eu dapibus aliquet, risus augue interdum orci, non efficitur mi tortor ac dolor. Maecenas euismod vehicula mauris, sit amet eleifend enim. Proin tristique malesuada nunc, vel euismod ipsum pulvinar sit amet. Phasellus hendrerit laoreet quam quis rhoncus. Fusce fringilla sapien a tellus convallis bibendum. Duis in quam ipsum. Proin vel turpis nec nulla lacinia tristique id sed erat.",
-        homeImage: "assets/images/dummy_01.jpg",
+        homeImage: "assets/images/dummy_02.jpg",
         images: [
-          "assets/images/dummy_01.jpg",
-          "assets/images/dummy_01.jpg",
-          "assets/images/dummy_01.jpg"
+          "assets/images/banner_01.jpg",
+          "assets/images/banner_02.jpg",
+          "assets/images/banner_03.jpg"
         ]);
 
     return Scaffold(
@@ -68,10 +68,8 @@ class _DetailPageState extends State<DetailPage> {
                                 children: [
                                   Expanded(
                                     child: Center(
-                                      child: AspectRatio(
-                                          aspectRatio: 1 / 1,
-                                          child: DetailTop(
-                                              productDetail: productDetail)),
+                                      child: DetailTop(
+                                          productDetail: productDetail),
                                     ),
                                   ),
                                   const SizedBox(width: 20),

@@ -21,8 +21,8 @@ class DeatilMiddle extends StatefulWidget {
 
 class _DeatilMiddleState extends State<DeatilMiddle> {
   int _count = 1;
-  int _sizeIndex = -1;
-  int _colorIndex = -1;
+  int _sizeIndex = 0;
+  int _colorIndex = 0;
   int _stock = 0;
 
   void _showAlertDialog(String title, String content, VoidCallback onPressed) {
@@ -65,10 +65,10 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
     });
   }
 
-  void _handleColor(int index, int stock) {
+  void _handleColor(int index) {
     setState(() {
       _colorIndex = index;
-      _stock = stock;
+      _sizeIndex = 0;
       _count = 1;
     });
   }
@@ -81,7 +81,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
     }
 
     print(
-        "size:${widget.productDetail.sizes[_sizeIndex]["code"]}, color:${widget.productDetail.colors[_colorIndex]["code"]}, count:$_count");
+        "size:${widget.productDetail.variant[widget.productDetail.variant.keys.toList()[_colorIndex]]!.keys.toList()[_sizeIndex]}, color:${widget.productDetail.variant.keys.toList()[_colorIndex]}, count:$_count");
 
     _showAlertDialog(
       "成功",
@@ -124,7 +124,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.productDetail.colors.length,
+                itemCount: widget.productDetail.variant.keys.toList().length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     width: 20,
@@ -133,17 +133,14 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                     child: ButtonWithStyle(
                       text: "",
                       backgroundColor: Color(int.parse(
-                          widget.productDetail.colors[index]["code"]!)),
+                          widget.productDetail.variant.keys.toList()[index])),
                       isCurcleshape: false,
                       borderColor: _colorIndex == index
                           ? Colors.black
                           : Colors.transparent,
                       borderWidth: _colorIndex == index ? 2 : 0,
                       onPressed: () {
-                        _handleColor(
-                            index,
-                            int.parse(
-                                widget.productDetail.colors[index]["stock"]!));
+                        _handleColor(index);
                       },
                     ),
                   );
@@ -163,13 +160,24 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.productDetail.sizes.length,
+                itemCount: widget
+                    .productDetail
+                    .variant[widget.productDetail.variant.keys
+                        .toList()[_colorIndex]]!
+                    .keys
+                    .toList()
+                    .length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                       width: 50,
                       margin: const EdgeInsets.only(right: 15),
                       child: ButtonWithStyle(
-                        text: widget.productDetail.sizes[index]["code"]!,
+                        text: widget
+                            .productDetail
+                            .variant[widget.productDetail.variant.keys
+                                .toList()[_colorIndex]]!
+                            .keys
+                            .toList()[index],
                         backgroundColor:
                             _sizeIndex == index ? Colors.grey : Colors.white,
                         foregroundColor:
@@ -177,8 +185,14 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                         onPressed: () {
                           _handleSize(
                               index,
-                              int.parse(
-                                  widget.productDetail.sizes[index]["stock"]!));
+                              widget.productDetail.variant[
+                                  widget.productDetail.variant.keys
+                                      .toList()[_colorIndex]]![widget
+                                  .productDetail
+                                  .variant[widget.productDetail.variant.keys
+                                      .toList()[_colorIndex]]!
+                                  .keys
+                                  .toList()[index]]!);
                         },
                       ));
                 }),

@@ -19,22 +19,19 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     bool isLargeScreen = MediaQuery.of(context).size.width > 800;
 
-    final productMaterial = ProductMaterial(material: "棉", percent: 1.0);
     final productDetail = ProductDetail(
         id: widget.id,
         title: "UNIQLO 特級輕羽絨外套",
         price: "239",
-        colors: [
-          {'name': 'Red', 'code': '0xFFFF0000', 'stock': '10'},
-          {'name': 'Green', 'code': '0xFF00FF00', 'stock': '20'},
-          {'name': 'Blue', 'code': '0xFF00FFFF', 'stock': '15'}
+        variant: {
+          '0xFFFF0000': {'S': 10, 'M': 15, 'L': 20},
+          '0xFF00FF00': {'S': 5, 'M': 10, 'L': 15},
+          '0xFF00FFFF': {'M': 10, 'L': 20}
+        },
+        productMaterial: [
+          ProductMaterial(material: '棉', percent: 0.8),
+          ProductMaterial(material: '聚酯纖維', percent: 0.2)
         ],
-        sizes: [
-          {'name': 'Small', 'code': 'S', 'stock': '5'},
-          {'name': 'Medium', 'code': 'M', 'stock': '10'},
-          {'name': 'Large', 'code': 'L', 'stock': '15'}
-        ],
-        productMaterial: [productMaterial],
         thickness: "薄",
         flexible: "無",
         materialOrigin: "中國",

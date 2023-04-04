@@ -17,8 +17,7 @@ class ProductDetail {
   final String id;
   final String title;
   final String price;
-  final List<Map<String, String>> colors;
-  final List<Map<String, String>> sizes;
+  final Map<String, Map<String, int>> variant;
   final List<ProductMaterial> productMaterial;
   final String thickness;
   final String flexible;
@@ -32,8 +31,7 @@ class ProductDetail {
       {required this.title,
       required this.id,
       required this.price,
-      required this.colors,
-      required this.sizes,
+      required this.variant,
       required this.productMaterial,
       required this.thickness,
       required this.flexible,

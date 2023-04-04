@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stylish/data/product.dart';
+import 'package:stylish/page/detail_page.dart';
 
 class Category extends StatefulWidget {
   const Category({
@@ -18,7 +19,7 @@ class Category extends StatefulWidget {
 }
 
 class _CategoryState extends State<Category> {
-  bool _isVisible = false;
+  bool _isVisible = true;
 
   void _toggleVisibility() {
     setState(() {
@@ -33,14 +34,17 @@ class _CategoryState extends State<Category> {
         children: [
           Text(widget.category),
           Flexible(
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics()),
-              itemCount: widget.productList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ProdcutItem(item: widget.productList[index]);
-              },
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
+                itemCount: widget.productList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ProdcutItem(item: widget.productList[index]);
+                },
+              ),
             ),
           )
         ],
@@ -83,41 +87,50 @@ class ProdcutItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 100,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.black, width: 1.0)),
-        margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)),
-              child: item.image,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DetailPage(id: item.id)),
+          );
+        },
+        child: Container(
+            height: 100,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(color: Colors.black, width: 1.0)),
+            margin:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+            child: Row(
               children: [
-                Text(
-                  item.title,
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: item.image,
                 ),
-                Text(item.price),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      item.title,
+                    ),
+                    Text(item.price),
+                  ],
+                ),
               ],
-            ),
-          ],
-        ));
+            )));
   }
 }
 
 class ProductListPhone extends StatelessWidget {
   final List<Product> productList = List<Product>.generate(20, (index) {
     return Product(
+        id: "1234567",
         image: Image.asset("assets/images/dummy_01.jpg",
             height: 100, width: 80, fit: BoxFit.cover),
         title: "UNIQLO 特級輕羽絨外套",
@@ -129,14 +142,15 @@ class ProductListPhone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: SingleChildScrollView(
-      child: Column(
+      child: ListView(
+        // child: Column(
         children: [
           Category(category: "女裝", productList: productList, isflexible: false),
           Category(category: "男裝", productList: productList, isflexible: false),
           Category(category: "配件", productList: productList, isflexible: false)
         ],
       ),
-    ));
+      // ),
+    );
   }
 }

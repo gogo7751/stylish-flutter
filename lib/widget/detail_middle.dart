@@ -27,6 +27,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
 
   void _showAlertDialog(String title, String content, VoidCallback onPressed) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -55,6 +56,18 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
               ? _count--
               : _count = 1;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _stock = widget.productDetail
+            .variant[widget.productDetail.variant.keys.toList()[_colorIndex]]![
+        widget
+            .productDetail
+            .variant[widget.productDetail.variant.keys.toList()[_colorIndex]]!
+            .keys
+            .toList()[0]]!;
   }
 
   void _handleSize(int index, int stock) {

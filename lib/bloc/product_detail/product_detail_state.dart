@@ -1,7 +1,7 @@
 part of 'product_detail_bloc.dart';
 
 abstract class ProductDetailState {
-  ProductDetail? productDetail;
+  Product? productDetail;
 
   ProductDetailState(this.productDetail);
 }
@@ -16,7 +16,7 @@ class ProductDetailLoadingState extends ProductDetailState {
 
 class ProductDetailSuccessState extends ProductDetailState {
   @override
-  ProductDetail? productDetail;
+  Product? productDetail;
 
   ProductDetailSuccessState(this.productDetail) : super(productDetail);
 }

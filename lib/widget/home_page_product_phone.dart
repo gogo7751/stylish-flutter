@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish/bloc/product/product_bloc.dart';
+import 'package:stylish/widget/image.dart';
 import 'package:stylish/data/product.dart';
 import 'package:stylish/page/detail_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Category extends StatefulWidget {
   const Category({
@@ -93,9 +94,10 @@ class ProdcutItem extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => DetailPage(id: item.id)),
-          );
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPage(id: item.id),
+              ));
         },
         child: Container(
             height: 100,
@@ -106,11 +108,10 @@ class ProdcutItem extends StatelessWidget {
                 const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
-                  child: item.image,
+                MyImageWidget(
+                  imageUrl: item.mainImage,
+                  borderRadiusTopLeft: 10,
+                  borderRadiusBottomLeft: 10,
                 ),
                 const SizedBox(
                   width: 10,
@@ -122,7 +123,7 @@ class ProdcutItem extends StatelessWidget {
                     Text(
                       item.title,
                     ),
-                    Text(item.price),
+                    Text((item.price).toString()),
                   ],
                 ),
               ],
@@ -146,15 +147,21 @@ class ProductListPhone extends StatelessWidget {
             children: [
               Category(
                   category: "女裝",
-                  productList: state.productList!,
+                  productList: state.productList!
+                      .where((element) => element.category == "women")
+                      .toList(),
                   isflexible: false),
               Category(
                   category: "男裝",
-                  productList: state.productList!,
+                  productList: state.productList!
+                      .where((element) => element.category == "men")
+                      .toList(),
                   isflexible: false),
               Category(
                   category: "配件",
-                  productList: state.productList!,
+                  productList: state.productList!
+                      .where((element) => element.category == "accessories")
+                      .toList(),
                   isflexible: false)
             ],
           ),

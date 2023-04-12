@@ -12,7 +12,7 @@ class DeatilMiddle extends StatefulWidget {
     required this.widget,
   }) : super(key: key);
 
-  final ProductDetail productDetail;
+  final Product productDetail;
   final DetailPage widget;
 
   @override
@@ -61,13 +61,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
   @override
   void initState() {
     super.initState();
-    _stock = widget.productDetail
-            .variant[widget.productDetail.variant.keys.toList()[_colorIndex]]![
-        widget
-            .productDetail
-            .variant[widget.productDetail.variant.keys.toList()[_colorIndex]]!
-            .keys
-            .toList()[0]]!;
+    _stock = widget.productDetail.variants[0].stock;
   }
 
   void _handleSize(int index, int stock) {
@@ -93,9 +87,6 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
       return;
     }
 
-    print(
-        "size:${widget.productDetail.variant[widget.productDetail.variant.keys.toList()[_colorIndex]]!.keys.toList()[_sizeIndex]}, color:${widget.productDetail.variant.keys.toList()[_colorIndex]}, count:$_count");
-
     _showAlertDialog(
       "成功",
       "已加入購物車",
@@ -116,7 +107,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
         fontWeight: FontWeight.bold,
       ),
       TextWithStyle(
-        text: widget.productDetail.id,
+        text: (widget.productDetail.id).toString(),
         color: const Color.fromARGB(141, 48, 48, 48),
       ),
       TextWithStyle(
@@ -137,7 +128,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.productDetail.variant.keys.toList().length,
+                itemCount: widget.productDetail.variants.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     width: 20,
@@ -146,7 +137,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                     child: ButtonWithStyle(
                       text: "",
                       backgroundColor: Color(int.parse(
-                          widget.productDetail.variant.keys.toList()[index])),
+                          "0xFF${widget.productDetail.variants[index].colorCode}")),
                       isCurcleshape: false,
                       borderColor: _colorIndex == index
                           ? Colors.black
@@ -173,39 +164,20 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget
-                    .productDetail
-                    .variant[widget.productDetail.variant.keys
-                        .toList()[_colorIndex]]!
-                    .keys
-                    .toList()
-                    .length,
+                itemCount: widget.productDetail.sizes.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                       width: 50,
                       margin: const EdgeInsets.only(right: 15),
                       child: ButtonWithStyle(
-                        text: widget
-                            .productDetail
-                            .variant[widget.productDetail.variant.keys
-                                .toList()[_colorIndex]]!
-                            .keys
-                            .toList()[index],
+                        text: widget.productDetail.sizes[index],
                         backgroundColor:
                             _sizeIndex == index ? Colors.grey : Colors.white,
                         foregroundColor:
                             _sizeIndex == index ? Colors.white : Colors.black,
                         onPressed: () {
-                          _handleSize(
-                              index,
-                              widget.productDetail.variant[
-                                  widget.productDetail.variant.keys
-                                      .toList()[_colorIndex]]![widget
-                                  .productDetail
-                                  .variant[widget.productDetail.variant.keys
-                                      .toList()[_colorIndex]]!
-                                  .keys
-                                  .toList()[index]]!);
+                          _handleSize(index,
+                              widget.productDetail.variants[index].stock);
                         },
                       ));
                 }),
@@ -256,43 +228,25 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                   fontSize: 16,
                 )))
       ]),
-      const TextWithStyle(
-        text: "實品顏色依單品照為主",
+      TextWithStyle(
+        text: widget.productDetail.note,
         marginTop: 8,
         marginBottom: 3,
       ),
-      SizedBox(
-        height: 20,
-        width: double.infinity,
-        child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.productDetail.productMaterial.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin: const EdgeInsets.only(right: 15),
-                child: TextWithStyle(
-                  text:
-                      "${widget.productDetail.productMaterial[index].material} ${(widget.productDetail.productMaterial[index].percent * 100).toStringAsFixed(0)}%",
-                ),
-              );
-            }),
-      ),
       TextWithStyle(
-        text: "厚薄：${widget.productDetail.thickness}",
+        text: "材質：${widget.productDetail.texture}",
         marginTop: 3,
       ),
       TextWithStyle(
-        text: "彈性：${widget.productDetail.flexible}",
+        text: "厚薄：${widget.productDetail.description}",
         marginTop: 3,
       ),
       TextWithStyle(
-        text: "素材產地 / ${widget.productDetail.materialOrigin}",
+        text: "素材產地 / ${widget.productDetail.place}",
         marginTop: 3,
       ),
       TextWithStyle(
-        text: "加工產地 / ${widget.productDetail.processingOrigin}",
+        text: "加工產地 / ${widget.productDetail.place}",
         marginTop: 3,
       ),
     ]);

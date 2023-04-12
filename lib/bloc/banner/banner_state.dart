@@ -1,7 +1,7 @@
 part of 'banner_bloc.dart';
 
 abstract class BannerState {
-  List<ImageList>? imageList;
+  List<Hots>? imageList;
 
   BannerState(this.imageList);
 }
@@ -16,13 +16,13 @@ class BannerLoadingState extends BannerState {
 
 class BannerSuccessState extends BannerState {
   @override
-  List<ImageList>? imageList;
+  List<Hots>? hots;
 
-  BannerSuccessState(this.imageList) : super(imageList);
+  BannerSuccessState(this.hots) : super(hots);
 }
 
 class BannerErrorState extends BannerState {
-  String errorMsg = "";
+  String errorMsg = "Nooooooooooooooooooooooooo";
 
   BannerErrorState(this.errorMsg) : super(null);
 }

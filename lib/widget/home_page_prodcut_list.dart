@@ -11,9 +11,9 @@ class HomePageProductList extends StatelessWidget {
     const double minScreenWidth = 800.0;
 
     if (screenWidth < minScreenWidth) {
-      return ProductListPhone();
+      return const ProductListPhone();
     } else {
-      return ProductListWeb();
+      return const ProductListWeb();
     }
   }
 }

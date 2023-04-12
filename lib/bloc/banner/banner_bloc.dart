@@ -12,7 +12,7 @@ class BannerBloc extends Bloc<BannerEvent, BannerState> {
     on<BannerEvent>((event, emit) async {
       emit(BannerLoadingState());
       try {
-        var data = await productRepo.getImageList();
+        var data = await productRepo.getHots();
         emit(BannerSuccessState(data));
       } catch (e) {
         emit(BannerErrorState(e.toString()));

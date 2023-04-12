@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stylish/bloc/banner/banner_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stylish/widget/image.dart';
 
 class BannerList extends StatelessWidget {
   const BannerList({Key? key}) : super(key: key);
@@ -13,18 +14,22 @@ class BannerList extends StatelessWidget {
       }
       if (state is BannerSuccessState) {
         return SizedBox(
-          height: 150,
+          height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: state.imageList!.length,
+            itemCount: state.hots![0].products.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
                   width: 250.0,
                   margin: const EdgeInsets.only(
                       top: 20, bottom: 10, left: 10, right: 10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: state.imageList?[index].image ?? Container(),
+                  child: MyImageWidget(
+                    imageUrl: state.hots![0].products[index].mainImage,
+                    borderRadiusTopLeft: 10,
+                    borderRadiusTopRight: 10,
+                    borderRadiusBottomLeft: 10,
+                    borderRadiusBottomRight: 10,
+                    fit: BoxFit.cover,
                   ));
             },
           ),

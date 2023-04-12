@@ -6,12 +6,12 @@ class ProductRepository extends BaseRepository {
   final DataProvider _dataProvider = DataProvider();
 
   @override
-  Future<List<ImageList>> getImageList() => _dataProvider.getImageList();
+  Future<List<Hots>> getHots() => _dataProvider.getHots();
 
   @override
   Future<List<Product>> getProduct() => _dataProvider.getProductList();
 
   @override
-  Future<ProductDetail?> getProductDetail(String id) =>
+  Future<Product> getProductDetail(int id) =>
       _dataProvider.getProductDetail(id);
 }

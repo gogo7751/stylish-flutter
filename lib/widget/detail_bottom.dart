@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stylish/data/product.dart';
 import 'package:stylish/widget/text_style.dart';
+import 'package:stylish/widget/image.dart';
 
 class DetailBottom extends StatelessWidget {
   const DetailBottom({
@@ -8,7 +9,7 @@ class DetailBottom extends StatelessWidget {
     required this.productDetail,
   });
 
-  final ProductDetail productDetail;
+  final Product productDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class DetailBottom extends StatelessWidget {
               ],
             ),
             TextWithStyle(
-              text: productDetail.detail,
+              text: productDetail.story,
               color: Colors.grey,
             ),
             ListView.builder(
@@ -58,8 +59,7 @@ class DetailBottom extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Image.asset(productDetail.images[index],
-                      fit: BoxFit.fill),
+                  child: MyImageWidget(imageUrl: productDetail.images[index]),
                 );
               },
             )

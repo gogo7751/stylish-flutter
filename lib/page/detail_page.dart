@@ -11,7 +11,7 @@ import 'package:stylish/bloc/product_detail/product_detail_bloc.dart';
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key, required this.id});
 
-  final String id;
+  final int id;
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -83,7 +83,7 @@ class DetailPagePhone extends StatelessWidget {
     required this.widget,
   });
 
-  final ProductDetail productDetail;
+  final Product productDetail;
   final DetailPage widget;
 
   @override
@@ -106,7 +106,7 @@ class DetailPageWeb extends StatelessWidget {
     required this.widget,
   });
 
-  final ProductDetail productDetail;
+  final Product productDetail;
   final DetailPage widget;
 
   @override

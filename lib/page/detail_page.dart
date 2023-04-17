@@ -90,7 +90,7 @@ class DetailPagePhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       DetailTop(productDetail: productDetail),
-      DeatilMiddle(
+      DetailMiddle(
         productDetail: productDetail,
         widget: widget,
       ),
@@ -122,7 +122,7 @@ class DetailPageWeb extends StatelessWidget {
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: DeatilMiddle(
+              child: DetailMiddle(
                 productDetail: productDetail,
                 widget: widget,
               ),

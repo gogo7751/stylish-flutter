@@ -5,8 +5,8 @@ import 'package:stylish/widget/button_style.dart';
 import 'package:stylish/page/detail_page.dart';
 import 'package:stylish/page/home_page.dart';
 
-class DeatilMiddle extends StatefulWidget {
-  const DeatilMiddle({
+class DetailMiddle extends StatefulWidget {
+  const DetailMiddle({
     Key? key,
     required this.productDetail,
     required this.widget,
@@ -16,10 +16,10 @@ class DeatilMiddle extends StatefulWidget {
   final DetailPage widget;
 
   @override
-  _DeatilMiddleState createState() => _DeatilMiddleState();
+  _DetailMiddleState createState() => _DetailMiddleState();
 }
 
-class _DeatilMiddleState extends State<DeatilMiddle> {
+class _DetailMiddleState extends State<DetailMiddle> {
   int _count = 1;
   int _sizeIndex = 0;
   int _colorIndex = 0;
@@ -128,7 +128,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.productDetail.variants.length,
+                itemCount: widget.productDetail.colors.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     width: 20,
@@ -137,7 +137,7 @@ class _DeatilMiddleState extends State<DeatilMiddle> {
                     child: ButtonWithStyle(
                       text: "",
                       backgroundColor: Color(int.parse(
-                          "0xFF${widget.productDetail.variants[index].colorCode}")),
+                          "0xFF${widget.productDetail.colors[index].code}")),
                       isCurcleshape: false,
                       borderColor: _colorIndex == index
                           ? Colors.black

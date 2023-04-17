@@ -123,7 +123,7 @@ class ProdcutItem extends StatelessWidget {
                     Text(
                       item.title,
                     ),
-                    Text((item.price).toString()),
+                    Text("NT\$ ${(item.price).toString()}"),
                   ],
                 ),
               ],

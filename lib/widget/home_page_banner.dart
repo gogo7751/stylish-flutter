@@ -1,7 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish/bloc/banner/banner_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish/widget/image.dart';
+import 'package:stylish/page/detail_page.dart';
 
 class BannerList extends StatelessWidget {
   const BannerList({Key? key}) : super(key: key);
@@ -13,24 +14,40 @@ class BannerList extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       }
       if (state is BannerSuccessState) {
+        final List<dynamic> productList = [];
+        state.hots!.forEach((data) {
+          final List<dynamic> products = data.products;
+          productList.addAll(products);
+        });
+
         return SizedBox(
           height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: state.hots![0].products.length,
+            itemCount: productList.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                  width: 250.0,
-                  margin: const EdgeInsets.only(
-                      top: 20, bottom: 10, left: 10, right: 10),
-                  child: MyImageWidget(
-                    imageUrl: state.hots![0].products[index].mainImage,
-                    borderRadiusTopLeft: 10,
-                    borderRadiusTopRight: 10,
-                    borderRadiusBottomLeft: 10,
-                    borderRadiusBottomRight: 10,
-                    fit: BoxFit.cover,
-                  ));
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailPage(id: productList[index].id),
+                      ));
+                },
+                child: Container(
+                    width: 250.0,
+                    margin: const EdgeInsets.only(
+                        top: 20, bottom: 10, left: 10, right: 10),
+                    child: MyImageWidget(
+                      imageUrl: productList[index].mainImage,
+                      borderRadiusTopLeft: 10,
+                      borderRadiusTopRight: 10,
+                      borderRadiusBottomLeft: 10,
+                      borderRadiusBottomRight: 10,
+                      fit: BoxFit.cover,
+                    )),
+              );
             },
           ),
         );

@@ -20,19 +20,25 @@ class ProductListWeb extends StatelessWidget {
             Flexible(
                 child: Category(
               category: "女裝",
-              productList: state.productList!,
+              productList: state.productList!
+                  .where((element) => element.category == "women")
+                  .toList(),
               isflexible: true,
             )),
             Flexible(
                 child: Category(
               category: "男裝",
-              productList: state.productList!,
+              productList: state.productList!
+                  .where((element) => element.category == "men")
+                  .toList(),
               isflexible: true,
             )),
             Flexible(
                 child: Category(
               category: "配件",
-              productList: state.productList!,
+              productList: state.productList!
+                  .where((element) => element.category == "accessories")
+                  .toList(),
               isflexible: true,
             ))
           ],

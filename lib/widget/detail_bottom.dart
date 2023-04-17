@@ -58,7 +58,7 @@ class DetailBottom extends StatelessWidget {
               itemCount: productDetail.images.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: MyImageWidget(imageUrl: productDetail.images[index]),
                 );
               },

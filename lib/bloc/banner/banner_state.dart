@@ -1,9 +1,9 @@
 part of 'banner_bloc.dart';
 
 abstract class BannerState {
-  List<Hots>? imageList;
+  List<Hots>? hots;
 
-  BannerState(this.imageList);
+  BannerState(this.hots);
 }
 
 class BannerInitial extends BannerState {

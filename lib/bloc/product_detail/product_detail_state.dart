@@ -26,3 +26,9 @@ class ProductDetailErrorState extends ProductDetailState {
 
   ProductDetailErrorState(this.errorMsg) : super(null);
 }
+
+class CountEventState extends ProductDetailState {
+  int count;
+
+  CountEventState(this.count) : super(null);
+}

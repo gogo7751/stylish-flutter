@@ -18,19 +18,5 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
         emit(ProductDetailErrorState(e.toString()));
       }
     });
-    on<IncrementEvent>((event, emit) {
-      final currentState = state;
-      if (currentState is ProductDetailSuccessState) {
-        emit(CountEventState(event.count++));
-      }
-    });
-    on<DecrementEvent>((event, emit) {
-      final currentState = state;
-      if (currentState is ProductDetailSuccessState) {
-        emit(CountEventState(event.count--));
-      }
-    });
-    // on<SelectColorEvent>((event, emit) {});
-    // on<SelectSizeEvent>((event, emit) {});
   }
 }

@@ -10,14 +10,10 @@ class MyImageWidget extends StatelessWidget {
     this.borderRadiusTopLeft = 0,
     this.borderRadiusBottomRight = 0,
     this.borderRadiusBottomLeft = 0,
-    this.fadeInDuration = 0,
-    this.fadeOutDuration = 0,
   });
 
   final String imageUrl;
   final BoxFit fit;
-  final int fadeInDuration;
-  final int fadeOutDuration;
   final double borderRadiusTopRight;
   final double borderRadiusTopLeft;
   final double borderRadiusBottomRight;
@@ -35,9 +31,10 @@ class MyImageWidget extends StatelessWidget {
       child: CachedNetworkImage(
         imageUrl: imageUrl,
         fit: fit,
-        fadeInDuration: Duration(milliseconds: fadeInDuration),
-        fadeOutDuration: Duration(milliseconds: fadeOutDuration),
-        placeholder: (context, url) => const CircularProgressIndicator(),
+        placeholder: (context, url) => Image.asset(
+          'assets/images/ic_placeholder.png',
+          fit: BoxFit.fill,
+        ),
         errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );

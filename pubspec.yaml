@@ -58,13 +58,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/app_bar_logo.png
-    - assets/images/banner_01.jpg
-    - assets/images/banner_02.jpg
-    - assets/images/banner_03.jpg
-    - assets/images/banner_04.jpg
-    - assets/images/dummy_01.jpg
-    - assets/images/dummy_02.jpg
-    - assets/images/dummy_03.jpg
+    - assets/images/ic_placeholder.png
 
     
   uses-material-design: true

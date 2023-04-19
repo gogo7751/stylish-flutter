@@ -4,12 +4,12 @@ import 'package:stylish/utils/dio.dart';
 import 'package:stylish/utils/http.dart';
 import 'dart:convert';
 
-const baseUrl = 'https://${Constants.apiUrl}/api/${Constants.version}';
-
 class DataProvider {
+  // http
   Future<List<Hots>> getHots() async {
     final response = await HttpClient().client.get(
-      Uri.parse('$baseUrl/marketing/hots'),
+      Uri.parse(
+          'https://${Constants.apiUrl}/api/${Constants.version}/marketing/hots'),
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
@@ -24,6 +24,7 @@ class DataProvider {
     }
   }
 
+  // dio
   Future<List<Product>> getProductList() async {
     List<Product> allProducts = [];
 

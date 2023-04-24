@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish/repo/product_repository.dart';
 import 'package:stylish/bloc/banner/banner_bloc.dart';
 import 'package:stylish/bloc/product/product_bloc.dart';
+import 'package:stylish/data/tappay.dart';
+import 'dart:convert';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -28,9 +30,9 @@ class MyHomePage extends StatelessWidget {
           appBar: MyAppBar(),
           body: Column(
             children: [
-              BannerList(),
+              // BannerList(),
               PlatformChannel(),
-              HomePageProductList(),
+              // HomePageProductList(),
             ],
           ),
         )));
@@ -47,6 +49,13 @@ class PlatformChannel extends StatefulWidget {
 class PlatformChannelState extends State<PlatformChannel> {
   static const platform = MethodChannel('com.example.stylish');
   String _message = 'No message received.';
+  String _prime = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _setupTappay();
+  }
 
   Future<void> _helloFromNative(String name) async {
     String message;
@@ -63,6 +72,84 @@ class PlatformChannelState extends State<PlatformChannel> {
     });
   }
 
+  Future<void> _setupTappay() async {
+    await platform.invokeMethod(
+      'setupTappay',
+      {
+        'appId': 130312,
+        'appKey':
+            "app_Dip159xUHDkRJsnmKlFTfYxWxngTp2AmYeRCbUmgyBNwJZS8DURtHppyWm4e",
+        'serverType': "sandBox",
+      },
+    );
+  }
+
+  Future<void> _isCardValid() async {
+    final bool result = await platform.invokeMethod(
+      'isCardValid',
+      {
+        'cardNumber': '4242424242424242',
+        'dueMonth': '01',
+        'dueYear': '26',
+        'ccv': '123',
+      },
+    );
+    print(result);
+  }
+
+  Future<void> _getPrime() async {
+    String prime;
+    try {
+      final String result = await platform.invokeMethod(
+        'getPrime',
+        {
+          'cardNumber': '4242424242424242',
+          'dueMonth': '01',
+          'dueYear': '26',
+          'ccv': '123',
+        },
+      );
+      prime = 'Get prime: ${Prime.fromJson(json.decode(result)).prime}';
+    } on PlatformException catch (e) {
+      prime = 'Error: ${e.message}';
+    }
+
+    setState(() {
+      _prime = prime;
+    });
+  }
+
+  //GooglePay prepare payment data
+  static Future<void> _preparePaymentData() async {
+    await platform.invokeMethod(
+      'preparePaymentData',
+      {
+        'allowedNetworks': [3],
+        'allowedAuthMethods': [0],
+        'merchantName': 'TEST MERCHANT',
+        'isPhoneNumberRequired': false,
+        'isShippingAddressRequired': false,
+        'isEmailRequired': false,
+      },
+    );
+  }
+
+  //request google pay payment data
+  static Future<void> _requestPaymentData() async {
+    await platform.invokeMethod(
+      'requestPaymentData',
+      {
+        'totalPrice': "100",
+        'currencyCode': "TWD",
+      },
+    );
+  }
+
+  // //Get google pay prime
+  static Future<void> _getGooglePayPrime() async {
+    await platform.invokeMethod('getGooglePayPrime');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -72,6 +159,27 @@ class PlatformChannelState extends State<PlatformChannel> {
           onPressed: () => _helloFromNative('Flutter'),
         ),
         Text(_message),
+        ElevatedButton(
+          child: const Text('isCardValid'),
+          onPressed: () => _isCardValid(),
+        ),
+        ElevatedButton(
+          child: const Text('Get prime'),
+          onPressed: () => _getPrime(),
+        ),
+        Text(_prime),
+        ElevatedButton(
+          child: const Text('Google prepare'),
+          onPressed: () => _preparePaymentData(),
+        ),
+        ElevatedButton(
+          child: const Text('Google request'),
+          onPressed: () => _requestPaymentData(),
+        ),
+        ElevatedButton(
+          child: const Text('Google prime'),
+          onPressed: () => _getGooglePayPrime(),
+        ),
       ],
     );
   }

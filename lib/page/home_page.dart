@@ -139,7 +139,7 @@ class PlatformChannelState extends State<PlatformChannel> {
     await platform.invokeMethod(
       'requestPaymentData',
       {
-        'totalPrice': "100",
+        'totalPrice': "1",
         'currencyCode': "TWD",
       },
     );
@@ -160,24 +160,24 @@ class PlatformChannelState extends State<PlatformChannel> {
         ),
         Text(_message),
         ElevatedButton(
-          child: const Text('isCardValid'),
+          child: const Text('Direct pay is card valid'),
           onPressed: () => _isCardValid(),
         ),
         ElevatedButton(
-          child: const Text('Get prime'),
+          child: const Text('Direct pay get prime'),
           onPressed: () => _getPrime(),
         ),
         Text(_prime),
         ElevatedButton(
-          child: const Text('Google prepare'),
+          child: const Text('Google pay set payment info'),
           onPressed: () => _preparePaymentData(),
         ),
         ElevatedButton(
-          child: const Text('Google request'),
+          child: const Text('Google pay set price'),
           onPressed: () => _requestPaymentData(),
         ),
         ElevatedButton(
-          child: const Text('Google prime'),
+          child: const Text('Google pay get prime'),
           onPressed: () => _getGooglePayPrime(),
         ),
       ],

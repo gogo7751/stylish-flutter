@@ -1,4 +1,6 @@
 package com.example.stylish
+import android.app.Activity
+import android.content.Intent
 import android.content.Intent.getIntent
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +10,11 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import tech.cherri.tpdirect.api.*
+import com.google.android.gms.wallet.AutoResolveHelper
 import com.google.android.gms.wallet.TransactionInfo
 import com.google.android.gms.wallet.WalletConstants
 import com.google.android.gms.wallet.PaymentData
+import com.google.android.gms.common.api.Status
 
 
 class MainActivity: FlutterActivity() {
@@ -22,12 +26,28 @@ class MainActivity: FlutterActivity() {
   private val tpdMerchant = TPDMerchant()
   private val tpdConsumer = TPDConsumer()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    val intent = getIntent()
-    paymentData = PaymentData.getFromIntent(intent)
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+      super.onActivityResult(requestCode, resultCode, data)
+    when (requestCode) {
+      LOAD_PAYMENT_DATA_REQUEST_CODE -> when (resultCode) {
+        Activity.RESULT_OK -> {
+          if (data != null) {
+            paymentData = PaymentData.getFromIntent(data)
+          }
+        }
+        Activity.RESULT_CANCELED -> {
+          Log.d("RESULT_CANCELED", data.toString())
+        }
+        AutoResolveHelper.RESULT_ERROR -> {
+          val status: Status? = AutoResolveHelper.getStatusFromIntent(data)
+          if (status != null) {
+            Log.d("RESULT_ERROR", "AutoResolveHelper.RESULT_ERROR : " + status.statusCode.toString() + " , message = " + status.statusMessage)
+          }
+        }
+      }
+    }
   }
+
 
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
     super.configureFlutterEngine(flutterEngine)

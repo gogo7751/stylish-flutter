@@ -17,6 +17,7 @@ class DioClient {
     _dio.options = BaseOptions(
       baseUrl: 'https://${Constants.apiUrl}/api/${Constants.version}',
       headers: {'Content-Type': 'application/json'},
+      responseType: ResponseType.json,
     );
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (RequestOptions options, RequestInterceptorHandler handler) {

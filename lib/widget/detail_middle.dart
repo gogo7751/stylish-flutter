@@ -11,11 +11,9 @@ class DetailMiddle extends StatefulWidget {
   const DetailMiddle({
     Key? key,
     required this.productDetail,
-    required this.widget,
   }) : super(key: key);
 
   final Product productDetail;
-  final DetailPage widget;
 
   @override
   _DetailMiddleState createState() => _DetailMiddleState();

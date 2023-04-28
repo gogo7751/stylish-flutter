@@ -1,11 +1,14 @@
+import 'package:stylish/data/db_product.dart';
 import 'package:stylish/data/product.dart';
+import 'package:stylish/dataProvider/dataSource/base_data_source.dart';
 import 'package:stylish/utils/constansts.dart';
 import 'package:stylish/utils/dio.dart';
 import 'package:stylish/utils/http.dart';
 import 'dart:convert';
 
-class DataProvider {
+class RemoteDataSource extends BaseDataSource {
   // http
+  @override
   Future<List<Hots>> getHots() async {
     final response = await HttpClient().client.get(
       Uri.parse(
@@ -25,6 +28,7 @@ class DataProvider {
   }
 
   // dio
+  @override
   Future<List<Product>> getProductList() async {
     List<Product> allProducts = [];
 
@@ -55,6 +59,7 @@ class DataProvider {
     return allProducts;
   }
 
+  @override
   Future<Product> getProductDetail(int id) async {
     final queryParameters = {'id': id};
 
@@ -68,5 +73,23 @@ class DataProvider {
     final productDetail = Product.fromJson(productDetailJson);
 
     return productDetail;
+  }
+
+  @override
+  Future<void> deleteFromCart(int id) {
+    // TODO: implement deleteFromCart
+    throw UnimplementedError();
+  }
+
+  @override
+  Future addToCart(DBProduct product) {
+    // TODO: implement insertCart
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<DBProduct>> getProductsFromCart() {
+    // TODO: implement queryCart
+    throw UnimplementedError();
   }
 }

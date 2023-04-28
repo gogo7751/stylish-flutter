@@ -5,30 +5,23 @@ import 'package:stylish/widget/detail_top.dart';
 import 'package:stylish/widget/detail_middle.dart';
 import 'package:stylish/widget/detail_bottom.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stylish/repo/product_repository.dart';
+import 'package:stylish/dataProvider/repo/stylish_repository.dart';
 import 'package:stylish/bloc/product_detail/product_detail_bloc.dart';
 import 'package:stylish/bloc/product_detail_select/product_detail_select_bloc.dart';
 
-class DetailPage extends StatefulWidget {
+class DetailPage extends StatelessWidget {
   const DetailPage({super.key, required this.id});
-
   final int id;
-
-  @override
-  State<DetailPage> createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     bool isLargeScreen = MediaQuery.of(context).size.width > 800;
-    ProductRepository productRepo = ProductRepository();
+    StylishRepository stylishRepo = StylishRepository();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => ProductDetailBloc(productRepo)
-            ..add(ProductDetailLoadEvent(productId: widget.id)),
+          create: (_) => ProductDetailBloc(stylishRepo)
+            ..add(ProductDetailLoadEvent(productId: id)),
         ),
         BlocProvider(
           create: (_) => ProductDetailSelectBloc(),
@@ -56,11 +49,9 @@ class _DetailPageState extends State<DetailPage> {
                           child: ListView(children: [
                             isLargeScreen
                                 ? DetailPageWeb(
-                                    productDetail: state.productDetail!,
-                                    widget: widget)
+                                    productDetail: state.productDetail!)
                                 : DetailPagePhone(
-                                    productDetail: state.productDetail!,
-                                    widget: widget),
+                                    productDetail: state.productDetail!),
                           ]),
                         ),
                       ),
@@ -84,11 +75,9 @@ class DetailPagePhone extends StatelessWidget {
   const DetailPagePhone({
     super.key,
     required this.productDetail,
-    required this.widget,
   });
 
   final Product productDetail;
-  final DetailPage widget;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +85,6 @@ class DetailPagePhone extends StatelessWidget {
       DetailTop(productDetail: productDetail),
       DetailMiddle(
         productDetail: productDetail,
-        widget: widget,
       ),
       DetailBottom(productDetail: productDetail),
     ]);
@@ -107,11 +95,9 @@ class DetailPageWeb extends StatelessWidget {
   const DetailPageWeb({
     super.key,
     required this.productDetail,
-    required this.widget,
   });
 
   final Product productDetail;
-  final DetailPage widget;
 
   @override
   Widget build(BuildContext context) {
@@ -126,10 +112,7 @@ class DetailPageWeb extends StatelessWidget {
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: DetailMiddle(
-                productDetail: productDetail,
-                widget: widget,
-              ),
+              child: DetailMiddle(productDetail: productDetail),
             ),
           ],
         ),

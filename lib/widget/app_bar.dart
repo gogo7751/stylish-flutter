@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stylish/page/cart_page.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -16,6 +17,22 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           fit: BoxFit.none,
         ),
       ),
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(
+            Icons.shopping_cart,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const CartPage(),
+              ),
+            );
+          },
+        )
+      ],
     );
   }
 

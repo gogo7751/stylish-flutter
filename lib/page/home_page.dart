@@ -27,12 +27,12 @@ class MyHomePage extends StatelessWidget {
           ),
         ],
         child: (Scaffold(
-          appBar: MyAppBar(),
+          appBar: const MyAppBar(),
           body: Column(
             children: [
-              // BannerList(),
-              PlatformChannel(),
-              // HomePageProductList(),
+              BannerList(),
+              // PlatformChannel(),
+              HomePageProductList(),
             ],
           ),
         )));

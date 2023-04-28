@@ -15,20 +15,11 @@ class ProductDetailLoadingState extends ProductDetailState {
 }
 
 class ProductDetailSuccessState extends ProductDetailState {
-  @override
-  Product? productDetail;
-
-  ProductDetailSuccessState(this.productDetail) : super(productDetail);
+  ProductDetailSuccessState(Product productDetail) : super(productDetail);
 }
 
 class ProductDetailErrorState extends ProductDetailState {
   String errorMsg = "";
 
   ProductDetailErrorState(this.errorMsg) : super(null);
-}
-
-class CountEventState extends ProductDetailState {
-  int count;
-
-  CountEventState(this.count) : super(null);
 }

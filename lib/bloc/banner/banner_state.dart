@@ -15,10 +15,7 @@ class BannerLoadingState extends BannerState {
 }
 
 class BannerSuccessState extends BannerState {
-  @override
-  List<Hots>? hots;
-
-  BannerSuccessState(this.hots) : super(hots);
+  BannerSuccessState(List<Hots> hots) : super(hots);
 }
 
 class BannerErrorState extends BannerState {

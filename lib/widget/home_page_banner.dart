@@ -41,10 +41,6 @@ class BannerList extends StatelessWidget {
                         top: 20, bottom: 10, left: 10, right: 10),
                     child: MyImageWidget(
                       imageUrl: productList[index].mainImage,
-                      borderRadiusTopLeft: 10,
-                      borderRadiusTopRight: 10,
-                      borderRadiusBottomLeft: 10,
-                      borderRadiusBottomRight: 10,
                       fit: BoxFit.cover,
                     )),
               );

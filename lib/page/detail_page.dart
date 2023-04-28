@@ -7,6 +7,7 @@ import 'package:stylish/widget/detail_bottom.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish/repo/product_repository.dart';
 import 'package:stylish/bloc/product_detail/product_detail_bloc.dart';
+import 'package:stylish/bloc/product_detail_select/product_detail_select_bloc.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key, required this.id});
@@ -28,6 +29,9 @@ class _DetailPageState extends State<DetailPage> {
         BlocProvider(
           create: (_) => ProductDetailBloc(productRepo)
             ..add(ProductDetailLoadEvent(productId: widget.id)),
+        ),
+        BlocProvider(
+          create: (_) => ProductDetailSelectBloc(),
         ),
       ],
       child: Scaffold(

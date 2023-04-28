@@ -7,7 +7,7 @@ class ButtonWithStyle extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor = Colors.black,
     this.foregroundColor = Colors.white,
-    this.isCurcleshape = false,
+    this.isCurcleShape = false,
     this.borderColor = Colors.transparent,
     this.borderWidth = 0.0,
     this.borderRadius = 25.0,
@@ -30,7 +30,7 @@ class ButtonWithStyle extends StatelessWidget {
   final VoidCallback onPressed;
   final Color backgroundColor;
   final Color foregroundColor;
-  final bool isCurcleshape;
+  final bool isCurcleShape;
   final Color borderColor;
   final double borderWidth;
   final double borderRadius;
@@ -66,7 +66,7 @@ class ButtonWithStyle extends StatelessWidget {
               fontWeight: fontWeight,
               fontStyle: fontStyle,
               color: color),
-          shape: isCurcleshape
+          shape: isCurcleShape
               ? const CircleBorder()
               : RoundedRectangleBorder(
                   side: BorderSide(

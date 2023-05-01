@@ -85,7 +85,7 @@ class PlatformChannelState extends State<PlatformChannel> {
   }
 
   Future<void> _isCardValid() async {
-    final bool result = await platform.invokeMethod(
+    await platform.invokeMethod(
       'isCardValid',
       {
         'cardNumber': '4242424242424242',
@@ -94,7 +94,6 @@ class PlatformChannelState extends State<PlatformChannel> {
         'ccv': '123',
       },
     );
-    print(result);
   }
 
   Future<void> _getPrime() async {

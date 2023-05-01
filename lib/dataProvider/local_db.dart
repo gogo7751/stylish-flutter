@@ -15,6 +15,7 @@ class LocalDB {
 
   Future<Database> getDB() async {
     final dbPath = await getDatabasesPath();
+
     return _db ??= await openDatabase(
       join(dbPath, name),
       onCreate: (db, version) {

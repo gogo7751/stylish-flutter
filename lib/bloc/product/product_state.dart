@@ -15,10 +15,7 @@ class ProductLoadingState extends ProductState {
 }
 
 class ProductSuccessState extends ProductState {
-  @override
-  List<Product>? productList;
-
-  ProductSuccessState(this.productList) : super(productList);
+  ProductSuccessState(List<Product> productList) : super(productList);
 }
 
 class ProductErrorState extends ProductState {

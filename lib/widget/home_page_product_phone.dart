@@ -18,10 +18,10 @@ class Category extends StatefulWidget {
   final bool isflexible;
 
   @override
-  _CategoryState createState() => _CategoryState();
+  CategoryState createState() => CategoryState();
 }
 
-class _CategoryState extends State<Category> {
+class CategoryState extends State<Category> {
   bool _isVisible = true;
 
   void _toggleVisibility() {

@@ -24,7 +24,7 @@ class DetailPage extends StatelessWidget {
             ..add(ProductDetailLoadEvent(productId: id)),
         ),
         BlocProvider(
-          create: (_) => ProductDetailSelectBloc(),
+          create: (_) => ProductDetailSelectBloc(stylishRepo),
         ),
       ],
       child: Scaffold(

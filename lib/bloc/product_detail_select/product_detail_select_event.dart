@@ -26,4 +26,8 @@ class DecrementCountEvent extends ProductDetailSelectEvent {
   DecrementCountEvent({required this.productDetail});
 }
 
-class ComfirmEvent extends ProductDetailSelectEvent {}
+class ComfirmEvent extends ProductDetailSelectEvent {
+  Product productDetail;
+
+  ComfirmEvent({required this.productDetail});
+}

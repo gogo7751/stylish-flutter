@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish/data/product.dart';
 import 'package:stylish/widget/text_style.dart';
 import 'package:stylish/widget/button_style.dart';
-import 'package:stylish/page/detail_page.dart';
 import 'package:stylish/page/home_page.dart';
 import 'package:stylish/bloc/product_detail_select/product_detail_select_bloc.dart';
 
@@ -16,10 +15,10 @@ class DetailMiddle extends StatefulWidget {
   final Product productDetail;
 
   @override
-  _DetailMiddleState createState() => _DetailMiddleState();
+  DetailMiddleState createState() => DetailMiddleState();
 }
 
-class _DetailMiddleState extends State<DetailMiddle> {
+class DetailMiddleState extends State<DetailMiddle> {
   void _showAlertDialog(String title, String content, VoidCallback onPressed) {
     showDialog(
       barrierDismissible: false,
@@ -46,14 +45,7 @@ class _DetailMiddleState extends State<DetailMiddle> {
       _showAlertDialog("提示", "庫存不足", () => Navigator.pop(context));
       return;
     } else {
-      _showAlertDialog(
-        "成功",
-        "已加入購物車",
-        () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const MyHomePage()),
-        ),
-      );
+      _showAlertDialog("成功", "已加入購物車", () => Navigator.pop(context));
     }
   }
 
@@ -193,9 +185,9 @@ class _DetailMiddleState extends State<DetailMiddle> {
                     child: ButtonWithStyle(
                       text: "確認送出",
                       onPressed: () {
-                        BlocProvider.of<ProductDetailSelectBloc>(context)
-                            .add(ComfirmEvent());
                         _handleConfirmButton(state.count);
+                        BlocProvider.of<ProductDetailSelectBloc>(context).add(
+                            ComfirmEvent(productDetail: widget.productDetail));
                       },
                       borderRadius: 10,
                       fontSize: 16,

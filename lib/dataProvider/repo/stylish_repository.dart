@@ -1,13 +1,12 @@
 import 'package:stylish/data/product.dart';
 import 'package:stylish/data/db_product.dart';
 import 'package:stylish/dataProvider/repo/base_repository.dart';
-import 'package:stylish/dataProvider/dataSource/base_data_source.dart';
 import 'package:stylish/dataProvider/dataSource/local_data_source.dart';
 import 'package:stylish/dataProvider/dataSource/remote_data_source.dart';
 
 class StylishRepository extends BaseRepository {
-  final BaseDataSource _remoteDataSource = RemoteDataSource();
-  final BaseDataSource _localDataSource = LocalDataSource();
+  final RemoteDataSource _remoteDataSource = RemoteDataSource();
+  final LocalDataSource _localDataSource = LocalDataSource();
 
   @override
   Future<List<Hots>> getHots() => _remoteDataSource.getHots();

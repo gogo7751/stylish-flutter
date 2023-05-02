@@ -10,6 +10,8 @@ import 'package:stylish/bloc/product/product_bloc.dart';
 import 'package:stylish/data/tappay.dart';
 import 'dart:convert';
 
+import 'map_page.dart';
+
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -27,6 +29,20 @@ class MyHomePage extends StatelessWidget {
           ),
         ],
         child: (Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MapSample(),
+                ),
+              );
+            },
+            tooltip: 'Store location',
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            child: const Icon(Icons.location_on),
+          ),
           appBar: const MyAppBar(),
           body: Column(
             children: [
